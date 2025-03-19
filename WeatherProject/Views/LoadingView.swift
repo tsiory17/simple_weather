@@ -9,7 +9,14 @@ import SwiftUI
 
 struct LoadingView: View {
     var body: some View {
-        ProgressView(.discreteProgress(totalUnitCount: 100)).padding()
+        
+        VStack {
+            ProgressView()
+                .progressViewStyle(.circular)
+                .scaleEffect(3)
+        }
+            
+        
     }
 }
 

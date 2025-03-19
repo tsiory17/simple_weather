@@ -9,12 +9,45 @@ import SwiftUI
 
 struct ForecastViewCard: View {
     let forecastData: List
+    
+    func getDayOfWeek(_ dateString: String) -> String? {
+           let inputFormatter = DateFormatter()
+           inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+           inputFormatter.locale = Locale(identifier: "en_US_POSIX")
+
+           if let date = inputFormatter.date(from: dateString) {
+               let outputFormatter = DateFormatter()
+               outputFormatter.dateFormat = "EEEE" // Full day name (e.g., Monday, Tuesday)
+               return outputFormatter.string(from: date)
+           }
+           
+           return nil
+       }
+
+       // Computed property to determine background color based on the day
+       var backgroundColor: Color {
+           switch getDayOfWeek(forecastData.dtTxt) {
+           case "Monday": return .blue
+           case "Tuesday": return .green
+           case "Wednesday": return .purple
+           case "Thursday": return .orange
+           case "Friday": return .red
+           case "Saturday": return .yellow
+           case "Sunday": return .pink
+           default: return .gray
+           }
+       }
+       
     var body: some View {
          VStack(){
             
             HStack (alignment: .center){
                 VStack(spacing:5) {
-                    
+                    if let day = getDayOfWeek(forecastData.dtTxt) {
+                                              Text("\(day), \(forecastData.dtTxt.prefix(13))h") // Extracts "YYYY-MM-DD HH"
+                    } else {
+                      Text("Unknown Date")
+                    }
                     AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(forecastData.weather.first?.icon ?? "")@2x.png")).frame(width: 10, height:60)
                    
                     Text( "\(forecastData.weather[0].description)")
@@ -36,15 +69,32 @@ struct ForecastViewCard: View {
                            
                             
                         }
-                        Text("Date")
+                        
                     }.multilineTextAlignment(.center)
                 }
               
             }.padding()
             
         }.frame(width: 280, height: 200)
-            .background(Color.gray.opacity(0.2)).cornerRadius(20)
+            .background(backgroundColor.opacity(0.2)) // Apply dynamic background color
+            .cornerRadius(20)
     }
+    
+    
+    func formatDate(_ dateString: String) -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // Format from API
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX") // Ensure consistent parsing
+        
+        if let date = inputFormatter.date(from: dateString) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "E HH'h'" // "E" for short weekday name, "HH" for hours
+            return outputFormatter.string(from: date)
+        }
+        
+        return dateString // Return original if parsing fails
+    }
+
 }
 
 #Preview {

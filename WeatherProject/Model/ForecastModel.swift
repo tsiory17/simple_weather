@@ -107,6 +107,7 @@ enum Description: String, Codable {
     case overcastClouds = "overcast clouds"
     case scatteredClouds = "scattered clouds"
     case heavyRain = "heavy rain"
+    case snow = "Snow"
     case unknown = "unknown"  // Default case for unknown values
 
     init(from decoder: Decoder) throws {
@@ -121,6 +122,14 @@ enum MainEnum: String, Codable {
     case clear = "Clear"
     case clouds = "Clouds"
     case rain = "Rain"
+    case snow = "Snow"
+    case unknown = "unknown"
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let main = try container.decode(String.self)
+        self = MainEnum(rawValue: main) ?? .unknown
+    }
 }
 
 // MARK: - Wind

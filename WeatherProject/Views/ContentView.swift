@@ -18,7 +18,7 @@ struct ContentView: View {
             VStack {
                 if let location = locationManager.location {
                     Text("4CAST").font(.largeTitle).fontWeight(.bold)
-                    Text("\(location.latitude), \(location.longitude)")
+//                    Text("\(location.latitude), \(location.longitude)")
                     
                     if let weatherData = weatherViewModel.weatherData {
                         //                    Text("Weather: \(weatherData.main.temp)°C") 
@@ -38,9 +38,10 @@ struct ContentView: View {
                             .environmentObject(locationManager)
                     }
                 }
-            }
+                Spacer()
+            }.frame(width: .infinity)
             .padding()
-            Spacer()
+            
         }.background(Color.blue.opacity(0.1))
     }
 }
