@@ -21,4 +21,6 @@ class WeatherViewModel: ObservableObject {
             print("Error fetching weather: \(error)")
         }
     }
+    
+    
 }

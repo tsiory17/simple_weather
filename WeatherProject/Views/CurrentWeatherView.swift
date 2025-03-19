@@ -12,32 +12,52 @@ struct CurrentWeatherView: View {
 
     var body: some View {
         
-        VStack(spacing: 20){
-            Text("Location: \(weatherData.name)")
-            HStack (alignment: .center){
-                VStack() {
-                    AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(weatherData.weather.first?.icon ?? "")@2x.png"))
+        VStack(alignment:.center, spacing: 10){
+            Text("\(weatherData.name)").font(.title).fontWeight(.bold)
+        
+            HStack (){
+                VStack(alignment: .center){
+                    AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(weatherData.weather.first?.icon ?? "")@2x.png")) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                    } placeholder: {
+                        ProgressView()
+                    }
+
 
                   Text(weatherData.weather.first?.description.capitalized ?? "No description available")
                 }
-                VStack(){
+                Spacer()
+                
+                VStack(alignment: .leading,spacing: 15){
                     Text("Temperature: \(weatherData.main.temp, specifier: "%.1f") C")
                     Text("Feels like: \(weatherData.main.feels_like, specifier: "%.1f") C")
                     
-                    HStack{
-                        Text("min: \(weatherData.main.temp_min, specifier: "%.1f") C")
-                        Text("max: \(weatherData.main.temp_max, specifier: "%.1f") C")
+                    HStack(spacing:1){
+                        Image(systemName: "arrowshape.down.fill").foregroundStyle(.red)
+                        Text("min:")
+                        Text("\(weatherData.main.temp_min, specifier: "%.1f") C")
+                        Image(systemName: "arrowshape.down.fill").foregroundStyle(.green)
+                        Text("max:")
+                        Text("\(weatherData.main.temp_max, specifier: "%.1f") C")
                     }
-                }.multilineTextAlignment(.center)
+                    HStack{
+                        Text("Pressure: \(weatherData.main.pressure)")
+                        Text("Humidity: \(weatherData.main.humidity)")
+                    }
+                }
             }.padding()
-            HStack{
-                Text("Pressure: \(weatherData.main.pressure)")
-                Text("Humidity: \(weatherData.main.humidity)")
-            }
-            
-        }
+           
+          
+        }.frame(width: 400, height: 300)
+            .background(Color.blue.opacity(0.2))
 
     }
+    
 }
 
 #Preview {

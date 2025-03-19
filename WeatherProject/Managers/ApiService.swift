@@ -28,7 +28,24 @@ class ApiService {
         return decodedData
     }
     
-    func getCity (){
+    func getForecast(latitude:CLLocationDegrees, longitude:CLLocationDegrees) async throws -> ForecastModel{
+        //check the entrypoint
+        guard let url = URL(string:"https://api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(longitude)&&units=metric&appid=d6c98d7fd5c0cd2de7db26b9971bcc58") else{
+            fatalError("Invalid URL")
+        }
+        
+        let urlRequest = URLRequest(url:url)
+        
+        let (data,response) = try await URLSession.shared.data(for: urlRequest)
+      
+        
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            fatalError ("Failed to fetch data")
+        }
+        
+        let decodedForecastData = try JSONDecoder().decode(ForecastModel.self, from: data)
+        
+        return decodedForecastData
         
     }
 }

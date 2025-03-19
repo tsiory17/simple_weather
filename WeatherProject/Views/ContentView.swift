@@ -13,29 +13,35 @@ struct ContentView: View {
     @StateObject var weatherViewModel = WeatherViewModel()
     
     var body: some View {
-        VStack {
-            if let location = locationManager.location {
-                Text("\(location.latitude), \(location.longitude)")
-                
-                if let weatherData = weatherViewModel.weatherData {
-                    Text("Weather: \(weatherData.main.temp)°C") 
-                    CurrentWeatherView(weatherData: weatherData)
+        
+        ZStack {
+            VStack {
+                if let location = locationManager.location {
+                    Text("4CAST").font(.largeTitle).fontWeight(.bold)
+                    Text("\(location.latitude), \(location.longitude)")
+                    
+                    if let weatherData = weatherViewModel.weatherData {
+                        //                    Text("Weather: \(weatherData.main.temp)°C") 
+                        CurrentWeatherView(weatherData: weatherData)
+                        ForecastView()
+                    } else {
+                        LoadingView()
+                            .task {
+                                await weatherViewModel.fetchWeather(latitude: location.latitude, longitude: location.longitude)
+                            }
+                    }
                 } else {
-                    LoadingView()
-                        .task {
-                            await weatherViewModel.fetchWeather(latitude: location.latitude, longitude: location.longitude)
-                        }
-                }
-            } else {
-                if locationManager.isLoading {
-                    LoadingView()
-                } else {
-                    WelcomeView()
-                        .environmentObject(locationManager)
+                    if locationManager.isLoading {
+                        LoadingView()
+                    } else {
+                        WelcomeView()
+                            .environmentObject(locationManager)
+                    }
                 }
             }
-        }
-        .padding()
+            .padding()
+            Spacer()
+        }.background(Color.blue.opacity(0.1))
     }
 }
 
