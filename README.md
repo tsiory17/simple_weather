@@ -38,7 +38,7 @@ The goal is to build a sleek, accurate, and user-friendly **weather application*
 
 ### Welcome Screen
 - Title and “Share Location” button.
-- > *(Add screenshots here)*
+> *(Add screenshots here)*
 
 ### Main Screen
 - City Name, Weather Icon, Temperature, Description.
