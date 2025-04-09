@@ -54,6 +54,11 @@ These features use:
 - `gemini-2.0-flash` for food suggestions.
 - `gemini-2.5-pro-exp-03-25` for activity suggestions.
 
+## Packages To Be Installed:
+- `https://github.com/gonzalezreal/swift-markdown-ui.git` for Markdown response by AI
+- `https://github.com/google/generative-ai-swift` for Gemini API
+- `https://github.com/SDWebImage/SDWebImageSwiftUI`
+  
 ## User Interface Overview
 
 ### Welcome Screen
