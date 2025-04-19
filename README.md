@@ -1,4 +1,17 @@
-# Weather App (4CAST)
+# 4CAST - Weather App 🌦️  
+> **Navigate this Document**
+
+- [Project Overview](#project-overview)
+- [Why This App Matters](#why-this-app-matters)
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [AI-Powered Suggestions (Gemini API Integration)](#ai-powered-suggestions-gemini-api-integration)
+- [How To Run The Application](#how-to-run-the-application)
+- [User Interface Overview](#user-interface-overview)
+- [Architecture Diagram](#architecture-diagram)
+- [Models Diagram](#models-diagram)
+- [Developers](#developers)
+
 
 ## Project Overview
 4Cast is an accurate and user-friendly **weather application** that:
@@ -54,10 +67,31 @@ These features use:
 - `gemini-2.0-flash` for food suggestions.
 - `gemini-2.5-pro-exp-03-25` for activity suggestions.
 
-## Packages To Be Installed:
+## How To Run The Application:
+**Step 1 : Code Editor**<br>
+- Install XCode version 16 or later (on a Mac)
+- Launch **Xcode**.
+- Open your `.xcodeproj` file.
+
+**Step 2 : Install Packages**
+1. In Xcode, go to File > Add Packages.
+2. Enter the URL in the search bar. 
+3. Choose the latest version and click Add Package.  <br><br>
+***URL to be searched in the search bar:***
 - `https://github.com/gonzalezreal/swift-markdown-ui.git` for Markdown response by AI
 - `https://github.com/google/generative-ai-swift` for Gemini API
 - `https://github.com/SDWebImage/SDWebImageSwiftUI`
+
+**Step 3 : Run the simulator**
+- At the top of Xcode, locate the **device selector** next to the build and run buttons (a triangle ▶️).
+- Click it and choose a device (e.g., **iPhone 16**, **iPhone SE**, etc.) from the list under **Simulators**.
+- Press `Cmd + R` or click the **Run** button (▶️) in the toolbar.
+- This will launch the **iOS Simulator** and install + run your app on the selected device.
+
+ *The simulator might take a few seconds to start, especially the first time.
+ Your app will automatically launch once the build is successful.*
+
+  
   
 ## User Interface Overview
 
